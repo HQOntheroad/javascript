@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style: none;
+			}
+			#box{
+				width: 850px;
+				height: 500px;
+				margin: 50px auto;
+				border: 1px solid;
+				position: relative;
+				cursor:pointer;
+			}
+			#box ul li{
+				position: absolute;
+				width: 850px;
+				height: 500px;
+				top: 0;
+				left: 0;
+				opacity: 0;
+				z-index: 0;
+				transition: opacity 1.5s;
+				
+			}
+			#box ul li.ac{
+				opacity: 1;
+				z-index: 5;
+			}
+			#box ol{
+				position: absolute;
+				bottom: 10px;
+				left: 65%;
+				z-index: 6;
+			}
+			#box ol li{
+				width: 20px;
+				height: 20px;
+				margin: 5px;
+				float: left;
+				background-color: white;
+				border: 1px solid;
+				text-align: center;
+				line-height: 20px;
+				font-size: 12px;
+			}
+			#box ol li.ac{
+				background-color: #FF0000;
+				color: white;
+			}
+			#box>a{
+				text-decoration: none;
+				width: 40px;
+				height: 40px;
+				background: rgba(0,0,0,0.5);
+				position: absolute;
+				top: 50%;
+				margin-top: -10px;
+				text-align: center;
+				line-height: 30px;
+				font-size: 40px;
+				z-index: 6;
+			}
+			img{
+				width: 850px;
+				height: 500px;
+			}
+			#left{
+				left: 0;
+			}
+			#right{
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li class="ac"><a href="javascript:alert(0);"><img src="1.jpg" ></a></li>
+				<li><a href="javascript:alert(1);"><img src="2.jpg" ></a></li>
+				<li><a href="javascript:alert(2);"><img src="3.jpg" ></a></li>
+				<li><a href="javascript:alert(3);"><img src="4.jpg" ></a></li>
+				<li><a href="javascript:alert(4);"><img src="5.jpg" ></a></li>
+			</ul>
+			<ol>
+				
+			</ol>
+			<a href="javascript:;" id="left">&laquo;</a>
+			<a href="javascript:;" id="right">&raquo;</a>
+		</div>
+		<script type="text/javascript">
+			//找到所有的标签
+			var imgs = document.querySelector("ul").children;
+			var div = document.querySelector("div");
+			var ol =document.querySelector("ol");
+			var goPrev = document.querySelector("#left");
+			var goNext = document.querySelector("#right");
+			
+			var btns = []; //创建一个空数组
+			var index = 0;//记录当前的下标
+			var lastIndex = 0;// 记录上一次的下标
+			var timer = null;//切换定时器
+			//根据图片的数量创造<li></li>
+			for(var i = 0; i < imgs.length;i++){
+				var li = document.createElement("li");
+				li.innerHTML = i+1;
+				if(i === 0) li.className = "ac";
+				ol.appendChild(li);
+				btns.push(li);
+			}
+			//给每一个btn绑定事件
+			for(let i = 0;i < btns.length;i++){
+				btns[i].onclick = function (){
+					index = i;
+					changeImg();
+					lastIndex = index;
+				}
+			}
+			//向后
+			goNext.onclick = function (){
+				index++;
+				if(index === imgs.length) index = 0;
+				changeImg();
+				lastIndex = index;
+			}
+			//向前
+			goPrev.onclick = function (){
+				index--;
+				if(index < 0) index = imgs.length - 1;
+				changeImg();
+				lastIndex = index;
+			}
+			//自动播放
+			function autoPlay (){
+				timer = setInterval(function (){
+					goNext.onclick();
+				},2500);
+			}
+			autoPlay();
+			div.onmouseleave = autoPlay;
+			div.onmouseenter = function (){
+				clearInterval(timer);
+			}
+// 			function autoPlay(){
+// 				timer = setInterval(function (){
+// 					goNext.onclick();
+// 				},2500);
+// 			}
+// 			autoPlay();
+// 			div.onmouseleave = autoPlay;
+// 			div.onmouseenter = function(){
+// 				clearInterval(timer);
+// 			}
+			//创建一个图片切换函数
+			 function changeImg(){
+				 btns[lastIndex].classList.remove("ac");
+				 imgs[lastIndex].classList.remove("ac");
+				 
+				 btns[index].classList.add("ac");
+				 imgs[index].classList.add("ac");
+			 }
+		</script>
+	</body>
+</html>

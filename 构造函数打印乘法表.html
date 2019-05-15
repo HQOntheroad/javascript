@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+// 			function cfb(n){
+// 				this.n = n;
+// 				this.str = "";
+// 			}
+// 			cfb.prototype.ping = function (){
+// 				for(var i = 1; i <= this.n;i++){
+// 					for(var j = 0;j <= i;j++){
+// 						this.str += `${i}*${j} = ${i*j}&nbsp;`;
+// 					}
+// 					this.str +="</br>";
+// 				}
+// 				this.day();
+// 			}
+// 			cfb.prototype.day = function (){
+// 				document.write(this.str);
+// 			}
+// 			var c9 = new cfb(9);
+// 			c9.ping();
+// 			var c9 = new cfb(11);
+// 			c9.ping();
+
+
+			function cfb(n){
+				this.n = n;
+				this.str = "";
+			}
+			//拼接方法
+			cfb.prototype.ping =function (){
+				for(var i = 1;i <= this.n;i++){
+					for(var j = 1;j <= i;j++){
+						this.str += `${i}*${j}=${i*j}&nbsp;`;
+					}
+					this.str += "</br>"
+				}
+				this.daying();//打印函数方法调用
+			}
+			//打印函数
+			cfb.prototype.daying =function (){
+				document.write(this.str);
+			}
+			//接收,调用函数方法得到结果
+			var c9 = new cfb(9);
+			c9.ping();
+		</script>
+	</body>
+</html>

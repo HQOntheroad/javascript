@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			class fn{
+				constructor (name){
+					this.name = name;
+				}
+				eat(){
+					// class里的方法默认就在prototype上
+					console.log(this.name + "hah");
+				}
+			}
+			
+			var a = new fn("feng");
+			a.eat();
+		</script>
+	</body>
+</html>
